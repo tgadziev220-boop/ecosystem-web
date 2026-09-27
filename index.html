@@ -1,31 +1,150 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Web v1.1</title>
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#08090b">
+<title>Ecosystem Web v1.2</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#08090b;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.app{max-width:480px;margin:auto;min-height:100dvh;background:#0b0c0f}.view{display:none;min-height:100dvh;padding:calc(58px + env(safe-area-inset-top)) 16px 100px}.view.on{display:block}.feed{padding:0;height:100dvh;background:radial-gradient(circle at 55% 32%,#35383e,#111 45%,#050505 80%);position:relative}.top{position:absolute;top:calc(15px + env(safe-area-inset-top));width:100%;text-align:center;font-weight:800}.hero{padding-top:31vh;text-align:center;font-size:78px}.meta{position:absolute;bottom:110px;left:18px;right:75px}.meta p{margin:7px 0}.buy,.primary{border:0;border-radius:18px;padding:12px 15px;background:#fff;color:#08090b;font-weight:800}.actions{position:absolute;right:16px;bottom:125px;display:grid;gap:18px;text-align:center;font-size:25px}.actions button{background:none;border:0;color:#fff;font-size:25px}.actions small{display:block;font-size:10px}.nav{position:fixed;z-index:30;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,480px);height:calc(72px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:#0d0e12f5;border-top:1px solid #292b31;display:grid;grid-template-columns:repeat(4,1fr)}.nav button{border:0;background:none;color:#888;font-weight:700}.nav .on{color:#fff}.nav i{display:block;font-style:normal;font-size:23px}.nav .plus i{background:#fff;color:#000;width:38px;border-radius:9px;margin:auto}.search,input,textarea{width:100%;border:0;border-radius:15px;background:#191b20;color:#fff;padding:14px;font-size:16px;margin:6px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{background:#17191e;border-radius:18px;overflow:hidden}.card button{all:unset;display:block;width:100%;cursor:pointer}.pic{height:145px;display:grid;place-items:center;background:#252830;font-size:42px}.txt{padding:11px}.price{font-size:18px;font-weight:900}.back{position:absolute;top:calc(14px + env(safe-area-inset-top));left:15px;border:0;background:#202229;color:#fff;border-radius:50%;width:38px;height:38px;font-size:20px}.productHero{height:300px;border-radius:24px;background:#252830;display:grid;place-items:center;font-size:90px}.row{display:flex;gap:9px}.row>*{flex:1}.secondary{border:1px solid #444;background:#17191e;color:#fff;border-radius:18px;padding:13px;font-weight:800}.box{background:#17191e;border-radius:18px;padding:15px;margin:12px 0}.create button,.menu button{width:100%;border:0;border-radius:18px;background:#191b20;color:#fff;padding:18px;text-align:left;margin:6px 0;font-size:16px}.avatar{width:86px;height:86px;border-radius:50%;background:#282b32;display:grid;place-items:center;font-size:36px;margin:auto}.center{text-align:center}.toast{display:none;position:fixed;z-index:99;left:50%;bottom:95px;transform:translateX(-50%);background:#fff;color:#111;padding:11px 16px;border-radius:20px;font-weight:800;white-space:nowrap}.toast.on{display:block}
-</style></head><body><main class="app">
-<section id="video" class="view feed on"><div class="top">Подписки　 <u>Для вас</u></div><div class="hero">🎧</div><div class="meta"><b>@urban.store ✓</b><p>Наушники с активным шумоподавлением</p><button class="buy" onclick="openProduct('🎧','Наушники Air','1 990 ₽')">1 990 ₽ · Смотреть товар</button></div><div class="actions"><button onclick="like(this)">♡<small>12,8K</small></button><button onclick="go('comments')">💬<small>384</small></button><button onclick="wish(this)">🔖<small>Хочу</small></button><button onclick="toast('Ссылка на товар скопирована')">↗<small>Поделиться</small></button></div></section>
-<section id="goods" class="view"><h1>Товары</h1><input class="search" placeholder="Найти товар, магазин или автора"><div class="grid">
-<div class="card"><button onclick="openProduct('⌚️','Smart Watch','3 490 ₽')"><div class="pic">⌚️</div><div class="txt"><b>Smart Watch</b><div class="price">3 490 ₽</div></div></button></div>
-<div class="card"><button onclick="openProduct('👟','Кроссовки','5 990 ₽')"><div class="pic">👟</div><div class="txt"><b>Кроссовки</b><div class="price">5 990 ₽</div></div></button></div>
-<div class="card"><button onclick="openProduct('👜','Сумка','4 250 ₽')"><div class="pic">👜</div><div class="txt"><b>Сумка</b><div class="price">4 250 ₽</div></div></button></div>
-<div class="card"><button onclick="openProduct('🎧','Наушники Air','1 990 ₽')"><div class="pic">🎧</div><div class="txt"><b>Наушники Air</b><div class="price">1 990 ₽</div></div></button></div></div></section>
-<section id="create" class="view"><h1>Создать</h1><div class="create"><button onclick="go('editor')">🎬　<b>Видео</b><br><small>Опубликовать ролик</small></button><button onclick="go('editor')">📷　<b>Пост</b></button><button onclick="go('editor')">🛍　<b>Товар</b><br><small>AI поможет оформить карточку</small></button><button onclick="go('editor')">🏷　<b>Объявление</b></button></div></section>
-<section id="profile" class="view center"><div class="avatar">👤</div><h1>@username</h1><p>Покупатель · Автор · Продавец</p><div class="menu"><button onclick="go('store')">🏪 Мой магазин</button><button onclick="go('orders')">📦 Заказы и покупки</button><button onclick="go('chat')">💬 Сообщения</button><button onclick="toast('Настройки откроются здесь')">⚙️ Настройки</button></div></section>
-<section id="product" class="view"><button class="back" onclick="back()">‹</button><div id="pemoji" class="productHero">🎧</div><h1 id="pname">Товар</h1><h2 id="pprice">0 ₽</h2><p>★ 4.9 · 327 отзывов　🚚 Доставка от 1 дня</p><div class="row"><button class="primary" onclick="go('checkout')">Купить</button><button class="secondary" onclick="wish(this)">♡ Хочу</button></div><div class="box" onclick="go('store')"><b>Urban Store ✓</b><p>12K подписчиков · 318 товаров →</p></div><button class="secondary" style="width:100%" onclick="go('chat')">Написать продавцу</button></section>
-<section id="store" class="view"><button class="back" onclick="back()">‹</button><h1>Urban Store ✓</h1><p>12K подписчиков · ★ 4.9</p><button class="primary" onclick="toast('Вы подписались на магазин')">Подписаться</button><div class="box">🎬 Видео магазина　 🛍 318 товаров</div></section>
-<section id="comments" class="view"><button class="back" onclick="back()">‹</button><h1>Комментарии</h1><div class="box"><b>@maria</b><p>Кто уже заказывал? Как звук?</p></div><div class="box"><b>@alex</b><p>Получил вчера, шумодав отличный 👍</p></div><input placeholder="Написать комментарий…" onkeydown="if(event.key==='Enter'){toast('Комментарий опубликован');this.value=''}"></section>
-<section id="chat" class="view"><button class="back" onclick="back()">‹</button><h1>Urban Store</h1><div class="box">Здравствуйте! Чем можем помочь?</div><input placeholder="Сообщение…" onkeydown="if(event.key==='Enter'){toast('Сообщение отправлено');this.value=''}"></section>
-<section id="checkout" class="view"><button class="back" onclick="back()">‹</button><h1>Оформление</h1><div class="box">📍 Адрес доставки<br><b>Добавить адрес</b></div><div class="box">💳 Способ оплаты<br><b>Добавить карту</b></div><button class="primary" style="width:100%" onclick="toast('Демо: заказ создан')">Оформить заказ</button></section>
-<section id="editor" class="view"><button class="back" onclick="back()">‹</button><h1>Новая публикация</h1><input placeholder="Название"><textarea rows="5" placeholder="Описание"></textarea><input placeholder="Цена, ₽"><button class="secondary" style="width:100%" onclick="toast('AI подготовил черновик')">✨ Заполнить с AI</button><br><br><button class="primary" style="width:100%" onclick="toast('Черновик сохранён')">Опубликовать</button></section>
-<section id="orders" class="view"><button class="back" onclick="back()">‹</button><h1>Заказы</h1><div class="box">🎧 Наушники Air　<b>1 990 ₽</b><p>Передан в доставку</p></div></section>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--bg:#08090b;--panel:#15171c;--panel2:#20232a;--muted:#9da2ad;--line:#2b2e36;--white:#fff}
+body{margin:0;background:var(--bg);color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,textarea{font:inherit}.app{max-width:480px;margin:auto;min-height:100dvh;background:#0b0c0f;position:relative}
+.view{display:none;min-height:100dvh;padding:calc(58px + env(safe-area-inset-top)) 15px calc(94px + env(safe-area-inset-bottom))}
+.view.on{display:block}.feed{padding:0;height:100dvh;overflow-y:auto;scroll-snap-type:y mandatory;background:#050505}
+.slide{height:100dvh;scroll-snap-align:start;position:relative;overflow:hidden;background:radial-gradient(circle at 55% 31%,#3a3d45,#17181d 43%,#050505 78%)}
+.slide:nth-child(2){background:radial-gradient(circle at 45% 30%,#4b3d35,#181614 43%,#050505 78%)}
+.slide:nth-child(3){background:radial-gradient(circle at 50% 30%,#303b39,#141817 43%,#050505 78%)}
+.feedTop{position:fixed;z-index:20;top:0;left:50%;transform:translateX(-50%);width:min(100%,480px);padding:calc(14px + env(safe-area-inset-top)) 12px 15px;text-align:center;background:linear-gradient(#08090bdd,transparent);font-weight:800}
+.feedTop button{border:0;background:none;color:#9297a1;font-weight:800;padding:6px 11px}.feedTop button.on{color:#fff}
+.hero{padding-top:29vh;text-align:center;font-size:82px}.meta{position:absolute;left:16px;right:76px;bottom:112px}.meta h3{margin:0 0 7px}.meta p{margin:0 0 12px;line-height:1.35}
+.chip,.primary,.secondary{border:0;border-radius:18px;padding:12px 14px;font-weight:800}.chip,.primary{background:#fff;color:#090a0d}.secondary{background:#1b1d22;color:#fff;border:1px solid #353840}
+.actions{position:absolute;right:13px;bottom:125px;display:grid;gap:16px;text-align:center}.actions button{border:0;background:none;color:#fff;font-size:25px}.actions small{display:block;font-size:10px;margin-top:3px;color:#fff}
+.nav{position:fixed;z-index:50;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,480px);height:calc(72px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:#0c0d11f5;border-top:1px solid #252830;display:grid;grid-template-columns:repeat(4,1fr)}
+.nav button{border:0;background:none;color:#858a94;font-size:11px;font-weight:750}.nav button.on{color:#fff}.nav i{display:block;font-style:normal;font-size:22px;margin-bottom:3px}.nav .plus i{background:#fff;color:#000;width:38px;border-radius:9px;margin:0 auto 3px}
+h1{font-size:28px;margin:8px 0 18px}.sub{color:var(--muted);margin-top:-11px}.search,input,textarea{width:100%;border:1px solid transparent;border-radius:15px;background:#191b20;color:#fff;padding:14px;margin:6px 0;outline:none}.search:focus,input:focus,textarea:focus{border-color:#555b67}
+.cats{display:flex;gap:8px;overflow:auto;margin:12px -15px 16px;padding:0 15px}.cats button{white-space:nowrap;border:0;border-radius:18px;padding:9px 13px;background:#1a1c21;color:#fff}.cats .on{background:#fff;color:#111}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.card{background:#16181d;border-radius:18px;overflow:hidden}.card button{all:unset;display:block;width:100%}.pic{height:145px;display:grid;place-items:center;background:#252830;font-size:44px}.txt{padding:11px}.txt small{color:var(--muted)}.price{font-size:18px;font-weight:900;margin-top:5px}
+.back{position:fixed;z-index:60;top:calc(12px + env(safe-area-inset-top));margin-left:0;border:0;background:#202229dd;color:#fff;border-radius:50%;width:40px;height:40px;font-size:23px}
+.productHero{height:300px;border-radius:25px;background:#252830;display:grid;place-items:center;font-size:92px}.row{display:flex;gap:9px}.row>*{flex:1}
+.box{background:#17191e;border-radius:18px;padding:15px;margin:12px 0}.click{cursor:pointer}.menu button,.create button{width:100%;border:0;border-radius:18px;background:#191b20;color:#fff;padding:17px;text-align:left;margin:6px 0;font-size:16px}
+.avatar{width:90px;height:90px;border-radius:50%;background:#282b32;display:grid;place-items:center;font-size:38px;margin:10px auto}.center{text-align:center}.stats{display:flex;justify-content:center;gap:22px;margin:18px 0}.stats b{display:block;font-size:19px}
+.badge{display:inline-block;border-radius:12px;background:#20232a;padding:5px 8px;font-size:12px;color:#d9dbe0}.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:15px 0}.tabs button{border:0;border-radius:13px;background:#17191e;color:#aaa;padding:10px}.tabs .on{background:#fff;color:#111}
+.cartLine{display:flex;gap:12px;align-items:center}.cartLine .thumb{width:64px;height:64px;border-radius:14px;background:#252830;display:grid;place-items:center;font-size:30px}.cartLine .grow{flex:1}.qty{display:flex;align-items:center;gap:8px}.qty button{width:30px;height:30px;border:0;border-radius:9px;background:#292c33;color:#fff}
+.notice{position:relative}.dot{position:absolute;right:14px;top:16px;width:8px;height:8px;background:#fff;border-radius:50%}
+.toast{display:none;position:fixed;z-index:100;left:50%;bottom:calc(90px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#fff;color:#111;padding:11px 16px;border-radius:20px;font-weight:800;white-space:nowrap;max-width:90%;overflow:hidden;text-overflow:ellipsis}.toast.on{display:block}
+.modal{display:none;position:fixed;z-index:80;inset:0;background:#000a;align-items:flex-end;justify-content:center}.modal.on{display:flex}.sheet{width:min(100%,480px);background:#17191e;border-radius:24px 24px 0 0;padding:20px 16px calc(24px + env(safe-area-inset-bottom))}.sheet h2{margin-top:0}.sheet button{width:100%;margin-top:8px}
+</style>
+</head>
+<body><main class="app">
+<div class="feedTop" id="feedTop"><button onclick="feedMode(this,'following')">Подписки</button><button class="on" onclick="feedMode(this,'foryou')">Для вас</button></div>
+
+<section id="video" class="view feed on">
+  <article class="slide">
+    <div class="hero">🎧</div>
+    <div class="meta"><h3 onclick="go('store')">@urban.store ✓</h3><p>Наушники Air с активным шумоподавлением. Видео сразу ведёт к товару.</p><button class="chip" onclick="openProduct('🎧','Наушники Air','1 990 ₽','Urban Store')">1 990 ₽ · Смотреть товар</button></div>
+    <div class="actions"><button onclick="like(this)">♡<small>12,8K</small></button><button onclick="go('comments')">💬<small>384</small></button><button onclick="wish('Наушники Air',this)">🔖<small>Хочу</small></button><button onclick="share()">↗<small>Поделиться</small></button></div>
+  </article>
+  <article class="slide">
+    <div class="hero">👟</div>
+    <div class="meta"><h3 onclick="go('creator')">@max.look</h3><p>Образ дня. Кроссовки прикреплены прямо к ролику.</p><button class="chip" onclick="openProduct('👟','Кроссовки Motion','5 990 ₽','Street Lab')">5 990 ₽ · Смотреть товар</button></div>
+    <div class="actions"><button onclick="like(this)">♡<small>8,1K</small></button><button onclick="go('comments')">💬<small>219</small></button><button onclick="wish('Кроссовки Motion',this)">🔖<small>Хочу</small></button><button onclick="share()">↗<small>Поделиться</small></button></div>
+  </article>
+  <article class="slide">
+    <div class="hero">⌚️</div>
+    <div class="meta"><h3 onclick="go('store')">@tech.room ✓</h3><p>Smart Watch — уведомления, спорт и сон. Доставка от одного дня.</p><button class="chip" onclick="openProduct('⌚️','Smart Watch X','3 490 ₽','Tech Room')">3 490 ₽ · Смотреть товар</button></div>
+    <div class="actions"><button onclick="like(this)">♡<small>21K</small></button><button onclick="go('comments')">💬<small>612</small></button><button onclick="wish('Smart Watch X',this)">🔖<small>Хочу</small></button><button onclick="share()">↗<small>Поделиться</small></button></div>
+  </article>
+</section>
+
+<section id="goods" class="view">
+<h1>Товары</h1><input id="search" class="search" placeholder="Найти товар, магазин или автора" oninput="filterGoods(this.value)">
+<div class="cats"><button class="on" onclick="cat(this,'all')">Все</button><button onclick="cat(this,'tech')">Техника</button><button onclick="cat(this,'style')">Стиль</button><button onclick="cat(this,'home')">Дом</button><button onclick="cat(this,'beauty')">Красота</button></div>
+<div id="goodsGrid" class="grid">
+<div class="card item" data-cat="tech" data-name="smart watch"><button onclick="openProduct('⌚️','Smart Watch X','3 490 ₽','Tech Room')"><div class="pic">⌚️</div><div class="txt"><b>Smart Watch X</b><br><small>Tech Room</small><div class="price">3 490 ₽</div></div></button></div>
+<div class="card item" data-cat="style" data-name="кроссовки motion"><button onclick="openProduct('👟','Кроссовки Motion','5 990 ₽','Street Lab')"><div class="pic">👟</div><div class="txt"><b>Кроссовки Motion</b><br><small>Street Lab</small><div class="price">5 990 ₽</div></div></button></div>
+<div class="card item" data-cat="style" data-name="сумка nova"><button onclick="openProduct('👜','Сумка Nova','4 250 ₽','Mono Store')"><div class="pic">👜</div><div class="txt"><b>Сумка Nova</b><br><small>Mono Store</small><div class="price">4 250 ₽</div></div></button></div>
+<div class="card item" data-cat="tech" data-name="наушники air"><button onclick="openProduct('🎧','Наушники Air','1 990 ₽','Urban Store')"><div class="pic">🎧</div><div class="txt"><b>Наушники Air</b><br><small>Urban Store</small><div class="price">1 990 ₽</div></div></button></div>
+<div class="card item" data-cat="home" data-name="лампа aura"><button onclick="openProduct('💡','Лампа Aura','2 790 ₽','Home Lab')"><div class="pic">💡</div><div class="txt"><b>Лампа Aura</b><br><small>Home Lab</small><div class="price">2 790 ₽</div></div></button></div>
+<div class="card item" data-cat="beauty" data-name="набор skin"><button onclick="openProduct('🧴','Набор Skin','2 390 ₽','Care')"><div class="pic">🧴</div><div class="txt"><b>Набор Skin</b><br><small>Care</small><div class="price">2 390 ₽</div></div></button></div>
+</div></section>
+
+<section id="create" class="view"><h1>Создать</h1><p class="sub">Одна точка публикации для автора и продавца.</p><div class="create">
+<button onclick="editor('Видео')">🎬　<b>Видео</b><br><small>Ролик + товар + рекомендации AI</small></button>
+<button onclick="editor('Пост')">📷　<b>Пост</b><br><small>Фото, текст и отметки товаров</small></button>
+<button onclick="editor('Товар')">🛍　<b>Товар</b><br><small>AI поможет с названием, описанием и категорией</small></button>
+<button onclick="editor('Объявление')">🏷　<b>Объявление</b><br><small>Продать личную вещь</small></button>
+</div></section>
+
+<section id="profile" class="view center"><div class="avatar">👤</div><h1>@username</h1><p>Покупатель · Автор · Продавец</p><div class="stats"><span><b>128</b>публикаций</span><span><b>24K</b>подписчиков</span><span><b>318</b>товаров</span></div>
+<div class="tabs"><button class="on">Профиль</button><button onclick="go('wishlist')">Хочу</button><button onclick="go('notifications')">События</button></div>
+<div class="menu"><button onclick="go('store')">🏪 Мой магазин</button><button onclick="go('orders')">📦 Заказы и покупки</button><button onclick="go('chatlist')">💬 Сообщения</button><button onclick="go('cart')">🛒 Корзина <span id="cartBadge" class="badge">0</span></button><button onclick="go('settings')">⚙️ Настройки</button></div></section>
+
+<section id="product" class="view"><button class="back" onclick="back()">‹</button><div id="pemoji" class="productHero">🎧</div><h1 id="pname">Товар</h1><h2 id="pprice">0 ₽</h2><p>★ 4.9 · 327 отзывов　🚚 Доставка от 1 дня</p>
+<div class="row"><button class="primary" onclick="buyNow()">Купить</button><button class="secondary" onclick="addCurrentToCart()">В корзину</button></div>
+<div class="row" style="margin-top:9px"><button class="secondary" onclick="wishCurrent()">♡ Хочу</button><button class="secondary" onclick="go('reviews')">Отзывы</button></div>
+<div class="box click" onclick="go('store')"><b id="pseller">Urban Store ✓</b><p>Подписчики · товары · рейтинг →</p></div>
+<button class="secondary" style="width:100%" onclick="openChat('Продавец')">Написать продавцу</button></section>
+
+<section id="cart" class="view"><button class="back" onclick="back()">‹</button><h1>Корзина</h1><div id="cartItems"></div><div class="box"><b>Итого: <span id="cartTotal">0 ₽</span></b></div><button class="primary" style="width:100%" onclick="cart.length?go('checkout'):toast('Корзина пока пустая')">Перейти к оформлению</button></section>
+
+<section id="wishlist" class="view"><button class="back" onclick="back()">‹</button><h1>Хочу</h1><div id="wishItems"></div></section>
+
+<section id="store" class="view"><button class="back" onclick="back()">‹</button><div class="avatar">🏪</div><h1>Urban Store ✓</h1><p>12K подписчиков · ★ 4.9 · 318 товаров</p><div class="row"><button id="followBtn" class="primary" onclick="follow()">Подписаться</button><button class="secondary" onclick="openChat('Urban Store')">Сообщение</button></div><div class="box">🎬 86 видео　 🛍 318 товаров　 💬 1,2K отзывов</div><div class="grid"><div class="card"><button onclick="openProduct('🎧','Наушники Air','1 990 ₽','Urban Store')"><div class="pic">🎧</div><div class="txt"><b>Наушники Air</b><div class="price">1 990 ₽</div></div></button></div><div class="card"><button onclick="openProduct('⌚️','Smart Watch X','3 490 ₽','Urban Store')"><div class="pic">⌚️</div><div class="txt"><b>Smart Watch X</b><div class="price">3 490 ₽</div></div></button></div></div></section>
+
+<section id="creator" class="view"><button class="back" onclick="back()">‹</button><div class="avatar">😎</div><h1>@max.look</h1><p>Автор · 86K подписчиков</p><button class="primary" onclick="toast('Вы подписались на автора')">Подписаться</button><div class="box">Подборки · рекомендации · товары из видео</div></section>
+
+<section id="comments" class="view"><button class="back" onclick="back()">‹</button><h1>Комментарии</h1><div id="commentsList"><div class="box"><b>@maria</b><p>Кто уже заказывал? Как качество?</p></div><div class="box"><b>@alex</b><p>Получил вчера, всё отлично 👍</p></div></div><input id="commentInput" placeholder="Написать комментарий…"><button class="primary" style="width:100%" onclick="postComment()">Отправить</button></section>
+
+<section id="reviews" class="view"><button class="back" onclick="back()">‹</button><h1>Отзывы</h1><div class="box"><b>★ 5.0 · @anna</b><p>Товар соответствует видео. Доставка быстрая.</p></div><div class="box"><b>★ 4.8 · @igor</b><p>Хорошее качество за свою цену.</p></div></section>
+
+<section id="chatlist" class="view"><button class="back" onclick="back()">‹</button><h1>Сообщения</h1><div class="box click notice" onclick="openChat('Urban Store')"><b>Urban Store</b><p>Ваш заказ передан в доставку</p><span class="dot"></span></div><div class="box click" onclick="openChat('@max.look')"><b>@max.look</b><p>Спасибо за подписку!</p></div></section>
+
+<section id="chat" class="view"><button class="back" onclick="back()">‹</button><h1 id="chatTitle">Чат</h1><div id="messages"><div class="box">Здравствуйте! Чем можем помочь?</div></div><input id="messageInput" placeholder="Сообщение…"><button class="primary" style="width:100%" onclick="sendMessage()">Отправить</button></section>
+
+<section id="checkout" class="view"><button class="back" onclick="back()">‹</button><h1>Оформление</h1><div class="box click" onclick="toast('Демо: выбор адреса')">📍 Адрес доставки<br><b>Добавить адрес →</b></div><div class="box click" onclick="toast('Демо: выбор доставки')">🚚 Доставка<br><b>Курьер / пункт выдачи →</b></div><div class="box click" onclick="toast('Демо: способ оплаты')">💳 Оплата<br><b>Добавить способ оплаты →</b></div><button class="primary" style="width:100%" onclick="placeOrder()">Оформить заказ</button></section>
+
+<section id="orders" class="view"><button class="back" onclick="back()">‹</button><h1>Заказы</h1><div id="ordersList"><div class="box click" onclick="toast('Статус: передан в доставку')">🎧 <b>Наушники Air · 1 990 ₽</b><p>Передан в доставку</p></div></div></section>
+
+<section id="notifications" class="view"><button class="back" onclick="back()">‹</button><h1>События</h1><div class="box">❤️ @maria понравилось ваше видео</div><div class="box">📦 Заказ передан в доставку</div><div class="box">👤 12 новых подписчиков сегодня</div></section>
+
+<section id="settings" class="view"><button class="back" onclick="back()">‹</button><h1>Настройки</h1><div class="menu"><button onclick="toast('Демо: редактирование профиля')">👤 Редактировать профиль</button><button onclick="toast('Демо: безопасность аккаунта')">🔐 Безопасность</button><button onclick="toast('Демо: уведомления')">🔔 Уведомления</button><button onclick="toast('Демо: помощь и поддержка')">❓ Помощь</button></div></section>
+
+<section id="editor" class="view"><button class="back" onclick="back()">‹</button><h1 id="editorTitle">Новая публикация</h1><input id="titleInput" placeholder="Название"><textarea id="descInput" rows="5" placeholder="Описание"></textarea><input id="priceInput" inputmode="numeric" placeholder="Цена, ₽"><button class="secondary" style="width:100%" onclick="aiDraft()">✨ Заполнить с AI</button><br><br><button class="primary" style="width:100%" onclick="publish()">Опубликовать</button></section>
+
 <nav class="nav"><button class="on" data-go="video"><i>▶</i>Видео</button><button data-go="goods"><i>▦</i>Товары</button><button class="plus" data-go="create"><i>＋</i>Создать</button><button data-go="profile"><i>●</i>Профиль</button></nav>
-<div id="toast" class="toast"></div></main>
+<div id="toast" class="toast"></div>
+<div id="shareModal" class="modal" onclick="if(event.target===this)this.classList.remove('on')"><div class="sheet"><h2>Поделиться</h2><button class="secondary" onclick="toast('Ссылка скопирована');closeShare()">🔗 Скопировать ссылку</button><button class="secondary" onclick="toast('Демо: отправка в сообщения');closeShare()">💬 Отправить сообщением</button><button class="secondary" onclick="closeShare()">Отмена</button></div></div>
+</main>
 <script>
-let historyStack=['video'];
-function go(id,push=true){document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));document.getElementById(id).classList.add('on');if(push)historyStack.push(id);document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('on',x.dataset.go===id));window.scrollTo(0,0)}
+let historyStack=['video'], current={emoji:'🎧',name:'Наушники Air',price:'1 990 ₽',seller:'Urban Store'};
+let cart=[], wishlist=[], followed=false, currentCat='all';
+function go(id,push=true){document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));document.getElementById(id).classList.add('on');document.getElementById('feedTop').style.display=id==='video'?'block':'none';if(push)historyStack.push(id);document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('on',x.dataset.go===id));if(id==='cart')renderCart();if(id==='wishlist')renderWish();window.scrollTo(0,0)}
 function back(){if(historyStack.length>1)historyStack.pop();go(historyStack[historyStack.length-1],false)}
 document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{historyStack=[b.dataset.go];go(b.dataset.go,false)})
-function openProduct(e,n,p){document.getElementById('pemoji').textContent=e;document.getElementById('pname').textContent=n;document.getElementById('pprice').textContent=p;go('product')}
-function like(b){b.innerHTML=b.innerHTML.startsWith('♡')?'♥<small>12,9K</small>':'♡<small>12,8K</small>'}
-function wish(b){toast('Добавлено в «Хочу»')}
-let tt;function toast(s){let t=document.getElementById('toast');t.textContent=s;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),1600)}
+function openProduct(e,n,p,s){current={emoji:e,name:n,price:p,seller:s};pemoji.textContent=e;pname.textContent=n;pprice.textContent=p;pseller.textContent=s+' ✓';go('product')}
+function numPrice(p){return Number(p.replace(/\D/g,''))||0}
+function addCurrentToCart(){let f=cart.find(x=>x.name===current.name);if(f)f.qty++;else cart.push({...current,qty:1});updateBadge();toast('Добавлено в корзину')}
+function buyNow(){addCurrentToCart();go('checkout')}
+function updateBadge(){cartBadge.textContent=cart.reduce((a,x)=>a+x.qty,0)}
+function renderCart(){cartItems.innerHTML=cart.length?'':'<div class="box">Корзина пока пустая</div>';let total=0;cart.forEach((x,i)=>{total+=numPrice(x.price)*x.qty;cartItems.innerHTML+=`<div class="box cartLine"><div class="thumb">${x.emoji}</div><div class="grow"><b>${x.name}</b><p>${x.price}</p></div><div class="qty"><button onclick="qty(${i},-1)">−</button><b>${x.qty}</b><button onclick="qty(${i},1)">+</button></div></div>`});cartTotal.textContent=total.toLocaleString('ru-RU')+' ₽'}
+function qty(i,d){cart[i].qty+=d;if(cart[i].qty<=0)cart.splice(i,1);updateBadge();renderCart()}
+function wish(name,btn){if(!wishlist.includes(name))wishlist.push(name);if(btn)btn.innerHTML='🔖<small>В «Хочу»</small>';toast('Добавлено в «Хочу»')}
+function wishCurrent(){wish(current.name)}
+function renderWish(){wishItems.innerHTML=wishlist.length?wishlist.map(x=>`<div class="box">♡ <b>${x}</b><p>Следим за ценой и наличием</p></div>`).join(''):'<div class="box">Здесь появятся сохранённые товары</div>'}
+function like(b){let liked=b.dataset.liked==='1';b.dataset.liked=liked?'0':'1';b.innerHTML=(liked?'♡':'♥')+'<small>'+(liked?'12,8K':'12,9K')+'</small>'}
+function share(){shareModal.classList.add('on')}function closeShare(){shareModal.classList.remove('on')}
+function follow(){followed=!followed;followBtn.textContent=followed?'Вы подписаны':'Подписаться';toast(followed?'Подписка оформлена':'Подписка отменена')}
+function openChat(name){chatTitle.textContent=name;go('chat')}
+function sendMessage(){let v=messageInput.value.trim();if(!v)return;messages.innerHTML+=`<div class="box" style="margin-left:40px">${escapeHtml(v)}</div>`;messageInput.value='';toast('Сообщение отправлено')}
+function postComment(){let v=commentInput.value.trim();if(!v)return;commentsList.innerHTML+=`<div class="box"><b>@username</b><p>${escapeHtml(v)}</p></div>`;commentInput.value='';toast('Комментарий опубликован')}
+function editor(type){editorTitle.textContent='Новый '+type.toLowerCase();titleInput.value='';descInput.value='';priceInput.value='';go('editor')}
+function aiDraft(){titleInput.value=titleInput.value||'Новый товар';descInput.value='AI-черновик: краткое понятное описание, ключевые преимущества и характеристики.';if(!priceInput.value)priceInput.value='2990';toast('AI подготовил черновик')}
+function publish(){toast('Публикация создана в демо-режиме');setTimeout(()=>go('profile'),700)}
+function placeOrder(){if(!cart.length){toast('Добавьте товар в корзину');return}let total=cart.reduce((a,x)=>a+numPrice(x.price)*x.qty,0);ordersList.innerHTML=`<div class="box">✅ <b>Новый заказ · ${total.toLocaleString('ru-RU')} ₽</b><p>Заказ создан. Ожидает подтверждения.</p></div>`+ordersList.innerHTML;cart=[];updateBadge();toast('Заказ создан');setTimeout(()=>go('orders'),700)}
+function filterGoods(v){let q=v.toLowerCase();document.querySelectorAll('.item').forEach(x=>x.style.display=(x.dataset.name.includes(q)&&(currentCat==='all'||x.dataset.cat===currentCat))?'block':'none')}
+function cat(b,c){currentCat=c;document.querySelectorAll('.cats button').forEach(x=>x.classList.remove('on'));b.classList.add('on');filterGoods(search.value)}
+function feedMode(b,m){document.querySelectorAll('.feedTop button').forEach(x=>x.classList.remove('on'));b.classList.add('on');toast(m==='following'?'Лента подписок':'Рекомендации для вас')}
+function toast(s){let t=document.getElementById('toast');t.textContent=s;t.classList.add('on');clearTimeout(window.tt);window.tt=setTimeout(()=>t.classList.remove('on'),1500)}
+function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 </script></body></html>
