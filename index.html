@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#08090b">
-<title>Ecosystem Web v1.2</title>
+<title>Ecosystem Web v1.3</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{--bg:#08090b;--panel:#15171c;--panel2:#20232a;--muted:#9da2ad;--line:#2b2e36;--white:#fff}
@@ -34,6 +34,15 @@ h1{font-size:28px;margin:8px 0 18px}.sub{color:var(--muted);margin-top:-11px}.se
 .notice{position:relative}.dot{position:absolute;right:14px;top:16px;width:8px;height:8px;background:#fff;border-radius:50%}
 .toast{display:none;position:fixed;z-index:100;left:50%;bottom:calc(90px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#fff;color:#111;padding:11px 16px;border-radius:20px;font-weight:800;white-space:nowrap;max-width:90%;overflow:hidden;text-overflow:ellipsis}.toast.on{display:block}
 .modal{display:none;position:fixed;z-index:80;inset:0;background:#000a;align-items:flex-end;justify-content:center}.modal.on{display:flex}.sheet{width:min(100%,480px);background:#17191e;border-radius:24px 24px 0 0;padding:20px 16px calc(24px + env(safe-area-inset-bottom))}.sheet h2{margin-top:0}.sheet button{width:100%;margin-top:8px}
+
+.authLogo{width:78px;height:78px;border-radius:24px;background:#fff;color:#090a0d;display:grid;place-items:center;font-size:32px;font-weight:950;margin:22px auto 18px}
+.authWrap{padding-top:calc(75px + env(safe-area-inset-top));text-align:center}
+.authWrap .box{text-align:left}
+.profileEdit{text-align:left}
+.profileEdit label{display:block;color:#aeb3bd;font-size:13px;margin:12px 3px 2px}
+.avatarBtn{border:0;background:none;color:#fff}
+.danger{width:100%;border:1px solid #4a3030;background:#211617;color:#fff;border-radius:18px;padding:15px;font-weight:800}
+
 </style>
 </head>
 <body><main class="app">
@@ -76,9 +85,52 @@ h1{font-size:28px;margin:8px 0 18px}.sub{color:var(--muted);margin-top:-11px}.se
 <button onclick="editor('Объявление')">🏷　<b>Объявление</b><br><small>Продать личную вещь</small></button>
 </div></section>
 
-<section id="profile" class="view center"><div class="avatar">👤</div><h1>@username</h1><p>Покупатель · Автор · Продавец</p><div class="stats"><span><b>128</b>публикаций</span><span><b>24K</b>подписчиков</span><span><b>318</b>товаров</span></div>
-<div class="tabs"><button class="on">Профиль</button><button onclick="go('wishlist')">Хочу</button><button onclick="go('notifications')">События</button></div>
-<div class="menu"><button onclick="go('store')">🏪 Мой магазин</button><button onclick="go('orders')">📦 Заказы и покупки</button><button onclick="go('chatlist')">💬 Сообщения</button><button onclick="go('cart')">🛒 Корзина <span id="cartBadge" class="badge">0</span></button><button onclick="go('settings')">⚙️ Настройки</button></div></section>
+<section id="profile" class="view center">
+<div id="guestProfile">
+  <div class="avatar">👤</div><h1>Ваш профиль</h1>
+  <p>Войдите, чтобы публиковать, покупать, продавать и общаться.</p>
+  <button class="primary" style="width:100%" onclick="go('auth')">Войти / зарегистрироваться</button>
+</div>
+<div id="userProfile" style="display:none">
+  <button class="avatarBtn" onclick="go('editprofile')"><div id="profileAvatar" class="avatar">👤</div></button>
+  <h1 id="profileUsername">@username</h1>
+  <p id="profileName">Пользователь</p>
+  <p id="profileBio" class="sub">Покупатель · Автор · Продавец</p>
+  <div class="stats"><span><b id="pubCount">0</b>публикаций</span><span><b>0</b>подписчиков</span><span><b>0</b>подписок</span></div>
+  <button class="secondary" style="width:100%" onclick="go('editprofile')">Редактировать профиль</button>
+  <div class="tabs"><button class="on">Профиль</button><button onclick="go('wishlist')">Хочу</button><button onclick="go('notifications')">События</button></div>
+  <div class="menu"><button onclick="go('store')">🏪 Мой магазин</button><button onclick="go('orders')">📦 Заказы и покупки</button><button onclick="go('chatlist')">💬 Сообщения</button><button onclick="go('cart')">🛒 Корзина <span id="cartBadge" class="badge">0</span></button><button onclick="go('settings')">⚙️ Настройки</button></div>
+</div>
+</section>
+
+<section id="auth" class="view">
+<button class="back" onclick="back()">‹</button>
+<div class="authWrap">
+  <div class="authLogo">E</div>
+  <h1>Добро пожаловать</h1>
+  <p class="sub">Один аккаунт для покупок, контента и продаж.</p>
+  <div class="box">
+    <input id="authContact" autocomplete="email" placeholder="Телефон или e-mail">
+    <input id="authPassword" type="password" autocomplete="current-password" placeholder="Пароль">
+    <button class="primary" style="width:100%;margin-top:8px" onclick="login()">Продолжить</button>
+  </div>
+  <button class="secondary" style="width:100%" onclick="demoLogin()">Создать демо-аккаунт</button>
+  <p class="sub" style="margin-top:18px">В v1.3 данные аккаунта сохраняются только на этом устройстве. Настоящую авторизацию подключим через backend.</p>
+</div>
+</section>
+
+<section id="editprofile" class="view profileEdit">
+<button class="back" onclick="back()">‹</button>
+<h1>Редактировать профиль</h1>
+<label>Имя</label><input id="editName" placeholder="Ваше имя">
+<label>Username</label><input id="editUsername" placeholder="@username">
+<label>Описание</label><textarea id="editBio" rows="4" placeholder="Расскажите о себе"></textarea>
+<label>Аватар</label>
+<div class="cats">
+<button onclick="setAvatar('👤')">👤</button><button onclick="setAvatar('😎')">😎</button><button onclick="setAvatar('🧑‍💻')">🧑‍💻</button><button onclick="setAvatar('🛍️')">🛍️</button><button onclick="setAvatar('🚀')">🚀</button>
+</div>
+<button class="primary" style="width:100%" onclick="saveProfile()">Сохранить</button>
+</section>
 
 <section id="product" class="view"><button class="back" onclick="back()">‹</button><div id="pemoji" class="productHero">🎧</div><h1 id="pname">Товар</h1><h2 id="pprice">0 ₽</h2><p>★ 4.9 · 327 отзывов　🚚 Доставка от 1 дня</p>
 <div class="row"><button class="primary" onclick="buyNow()">Купить</button><button class="secondary" onclick="addCurrentToCart()">В корзину</button></div>
@@ -108,7 +160,7 @@ h1{font-size:28px;margin:8px 0 18px}.sub{color:var(--muted);margin-top:-11px}.se
 
 <section id="notifications" class="view"><button class="back" onclick="back()">‹</button><h1>События</h1><div class="box">❤️ @maria понравилось ваше видео</div><div class="box">📦 Заказ передан в доставку</div><div class="box">👤 12 новых подписчиков сегодня</div></section>
 
-<section id="settings" class="view"><button class="back" onclick="back()">‹</button><h1>Настройки</h1><div class="menu"><button onclick="toast('Демо: редактирование профиля')">👤 Редактировать профиль</button><button onclick="toast('Демо: безопасность аккаунта')">🔐 Безопасность</button><button onclick="toast('Демо: уведомления')">🔔 Уведомления</button><button onclick="toast('Демо: помощь и поддержка')">❓ Помощь</button></div></section>
+<section id="settings" class="view"><button class="back" onclick="back()">‹</button><h1>Настройки</h1><div class="menu"><button onclick="go('editprofile')">👤 Редактировать профиль</button><button onclick="toast('Безопасность подключим к backend')">🔐 Безопасность</button><button onclick="toast('Демо: настройки уведомлений')">🔔 Уведомления</button><button onclick="toast('Демо: помощь и поддержка')">❓ Помощь</button></div><button class="danger" onclick="logout()">Выйти из аккаунта</button></section>
 
 <section id="editor" class="view"><button class="back" onclick="back()">‹</button><h1 id="editorTitle">Новая публикация</h1><input id="titleInput" placeholder="Название"><textarea id="descInput" rows="5" placeholder="Описание"></textarea><input id="priceInput" inputmode="numeric" placeholder="Цена, ₽"><button class="secondary" style="width:100%" onclick="aiDraft()">✨ Заполнить с AI</button><br><br><button class="primary" style="width:100%" onclick="publish()">Опубликовать</button></section>
 
@@ -138,13 +190,57 @@ function follow(){followed=!followed;followBtn.textContent=followed?'Вы под
 function openChat(name){chatTitle.textContent=name;go('chat')}
 function sendMessage(){let v=messageInput.value.trim();if(!v)return;messages.innerHTML+=`<div class="box" style="margin-left:40px">${escapeHtml(v)}</div>`;messageInput.value='';toast('Сообщение отправлено')}
 function postComment(){let v=commentInput.value.trim();if(!v)return;commentsList.innerHTML+=`<div class="box"><b>@username</b><p>${escapeHtml(v)}</p></div>`;commentInput.value='';toast('Комментарий опубликован')}
-function editor(type){editorTitle.textContent='Новый '+type.toLowerCase();titleInput.value='';descInput.value='';priceInput.value='';go('editor')}
+function editor(type){if(!getUser()){toast('Сначала войдите в аккаунт');go('auth');return;}editorTitle.textContent='Новый '+type.toLowerCase();titleInput.value='';descInput.value='';priceInput.value='';go('editor')}
 function aiDraft(){titleInput.value=titleInput.value||'Новый товар';descInput.value='AI-черновик: краткое понятное описание, ключевые преимущества и характеристики.';if(!priceInput.value)priceInput.value='2990';toast('AI подготовил черновик')}
-function publish(){toast('Публикация создана в демо-режиме');setTimeout(()=>go('profile'),700)}
+function publish(){let u=getUser();if(!u){go('auth');return}u.publications=(u.publications||0)+1;saveUser(u);renderProfile();toast('Публикация создана в демо-режиме');setTimeout(()=>go('profile'),700)}
 function placeOrder(){if(!cart.length){toast('Добавьте товар в корзину');return}let total=cart.reduce((a,x)=>a+numPrice(x.price)*x.qty,0);ordersList.innerHTML=`<div class="box">✅ <b>Новый заказ · ${total.toLocaleString('ru-RU')} ₽</b><p>Заказ создан. Ожидает подтверждения.</p></div>`+ordersList.innerHTML;cart=[];updateBadge();toast('Заказ создан');setTimeout(()=>go('orders'),700)}
 function filterGoods(v){let q=v.toLowerCase();document.querySelectorAll('.item').forEach(x=>x.style.display=(x.dataset.name.includes(q)&&(currentCat==='all'||x.dataset.cat===currentCat))?'block':'none')}
 function cat(b,c){currentCat=c;document.querySelectorAll('.cats button').forEach(x=>x.classList.remove('on'));b.classList.add('on');filterGoods(search.value)}
 function feedMode(b,m){document.querySelectorAll('.feedTop button').forEach(x=>x.classList.remove('on'));b.classList.add('on');toast(m==='following'?'Лента подписок':'Рекомендации для вас')}
 function toast(s){let t=document.getElementById('toast');t.textContent=s;t.classList.add('on');clearTimeout(window.tt);window.tt=setTimeout(()=>t.classList.remove('on'),1500)}
 function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+
+function getUser(){try{return JSON.parse(localStorage.getItem('eco_user')||'null')}catch(e){return null}}
+function saveUser(u){localStorage.setItem('eco_user',JSON.stringify(u))}
+function normalizeUsername(v){v=(v||'username').trim().replace(/\s+/g,'').replace(/^@+/,'');return '@'+(v||'username')}
+function renderProfile(){
+  let u=getUser(), guest=document.getElementById('guestProfile'), user=document.getElementById('userProfile');
+  if(!guest||!user)return;
+  if(!u){guest.style.display='block';user.style.display='none';return}
+  guest.style.display='none';user.style.display='block';
+  profileAvatar.textContent=u.avatar||'👤';
+  profileUsername.textContent=normalizeUsername(u.username);
+  profileName.textContent=u.name||'Пользователь';
+  profileBio.textContent=u.bio||'Покупатель · Автор · Продавец';
+  pubCount.textContent=u.publications||0;
+  editName.value=u.name||''; editUsername.value=normalizeUsername(u.username); editBio.value=u.bio||'';
+}
+function demoLogin(){
+  let u={name:'Новый пользователь',username:'newuser',bio:'Покупатель · Автор · Продавец',avatar:'👤',publications:0};
+  saveUser(u);renderProfile();toast('Аккаунт создан');setTimeout(()=>{historyStack=['profile'];go('profile',false)},500)
+}
+function login(){
+  let c=authContact.value.trim(), p=authPassword.value;
+  if(!c||!p){toast('Введите телефон/e-mail и пароль');return}
+  let existing=getUser()||{};
+  let base=(c.includes('@')?c.split('@')[0]:c.replace(/\D/g,'').slice(-6))||'user';
+  let u={name:existing.name||'Пользователь',username:existing.username||base,bio:existing.bio||'Покупатель · Автор · Продавец',avatar:existing.avatar||'👤',publications:existing.publications||0};
+  saveUser(u);renderProfile();toast('Вы вошли');setTimeout(()=>{historyStack=['profile'];go('profile',false)},500)
+}
+let pendingAvatar='👤';
+function setAvatar(a){pendingAvatar=a;toast('Аватар выбран '+a)}
+function saveProfile(){
+  let u=getUser();if(!u){go('auth');return}
+  u.name=editName.value.trim()||'Пользователь';
+  u.username=editUsername.value.trim().replace(/^@+/,'')||'username';
+  u.bio=editBio.value.trim()||'Покупатель · Автор · Продавец';
+  u.avatar=pendingAvatar||u.avatar||'👤';
+  saveUser(u);renderProfile();toast('Профиль сохранён');setTimeout(()=>go('profile'),500)
+}
+function logout(){
+  localStorage.removeItem('eco_user');renderProfile();toast('Вы вышли из аккаунта');
+  setTimeout(()=>{historyStack=['profile'];go('profile',false)},400)
+}
+document.addEventListener('DOMContentLoaded',()=>{let u=getUser();if(u)pendingAvatar=u.avatar||'👤';renderProfile();updateBadge()});
+
 </script></body></html>
